@@ -19,9 +19,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with: 
           name: artifact-new
-          path: |
-            dist
-            package.json  
+          path: dist
+            # dist
+            # package.json  
   build:
     needs: test
     runs-on: ubuntu-latest
