@@ -16,8 +16,9 @@ jobs:
       - name: Test code
         run: npm run test
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with: 
+          name: artifact-new
           path: |
             dist
             package.json  
