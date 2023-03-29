@@ -11,13 +11,15 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm ci
-      - name: Lint code.
+      - name: Lint code
         run: npm run lint
       - name: Test code
         run: npm run test 
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      js-name: ${{ steps.publish.outputs.print }} 
     steps:
       - name: Get code
         uses: actions/checkout@v3
@@ -25,6 +27,9 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+      - name: Publish file name
+        id: publish
+        run: find dist/assets/*.js -type f -execdir echo 'print={}' >> $GITHUB_OUTPUT ';' 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with: 
@@ -40,5 +45,7 @@ jobs:
           name: artifact-new
       - name: Output Files
         run: ls
+      - name: Output Jobs
+        run: echo "${{ needs.build.outputs.js-name }}"
       - name: Deploy
         run: echo "Deploying..."
