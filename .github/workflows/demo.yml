@@ -48,4 +48,4 @@ jobs:
       - name: Output Jobs
         run: echo "${{ needs.build.outputs.js-name }}"
       - name: Deploy
-        run: echo "Deploying..."
+        run: echo "Deploying...."
